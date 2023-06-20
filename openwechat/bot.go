@@ -3,6 +3,7 @@ package openwechat
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/url"
@@ -235,6 +236,7 @@ func (b *Bot) syncCheck() error {
 		default:
 			messages, err := b.syncMessage()
 			if err != nil {
+				fmt.Println("selector:", resp.Selector, " err:", err)
 				return err
 			}
 			// todo 将这个错误处理交给用户

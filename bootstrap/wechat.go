@@ -25,10 +25,18 @@ func StartWebChat() {
 	err := bot.HotLogin(reloadStorage)
 	if err != nil {
 		log.Info("hot login err:", err)
-		err := os.Remove("token.json")
-		if err != nil {
-			log.Error("Remover token json:", err)
-			return
+		fileName := "token.json"
+		_, err := os.Stat(fileName)
+		if err == nil {
+			log.Error("File exist")
+			err := os.Remove(fileName)
+			if err != nil {
+				log.Error("Remover token json:", err)
+				return
+			}
+		}
+		if os.IsNotExist(err) {
+			log.Error("File not exist")
 		}
 
 		//reloadStorage = openwechat.NewJsonFileHotReloadStorage("token.json")

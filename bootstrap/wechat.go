@@ -24,13 +24,14 @@ func StartWebChat() {
 	//ENTER_OR_LEAVE_CHAT("7", "进入或离开聊天界面");
 	err := bot.HotLogin(reloadStorage)
 	if err != nil {
+		log.Info("hot login err:", err)
 		err := os.Remove("token.json")
 		if err != nil {
 			return
 		}
 
-		reloadStorage = openwechat.NewJsonFileHotReloadStorage("token.json")
-		err = bot.HotLogin(reloadStorage)
+		//reloadStorage = openwechat.NewJsonFileHotReloadStorage("token.json")
+		err = bot.Login()
 		if err != nil {
 			return
 		}

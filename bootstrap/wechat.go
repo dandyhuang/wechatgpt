@@ -27,12 +27,14 @@ func StartWebChat() {
 		log.Info("hot login err:", err)
 		err := os.Remove("token.json")
 		if err != nil {
+			log.Error("Remover token json:", err)
 			return
 		}
 
 		//reloadStorage = openwechat.NewJsonFileHotReloadStorage("token.json")
 		err = bot.Login()
 		if err != nil {
+			log.Error("login err:", err)
 			return
 		}
 	}
